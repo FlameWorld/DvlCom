@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>DVL Community</title>
+
+    <style>
+      body {
+        margin: 0;
+        font-family: Arial;
+        color: white;
+        overflow-x: hidden;
+        background: url("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRcwpgOmaOOmfzMhqv0coqzALirtaRORzuoZw&s")
+          no-repeat center center fixed;
+        background-size: cover;
+      }
+
+      /* dark overlay */
+      .overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.6);
+        z-index: -1;
+      }
+
+      /* Layout */
+      .container {
+        display: flex;
+        min-height: 100vh;
+        align-items: center;
+        justify-content: space-between;
+        padding: 80px;
+        max-width: 1600px;
+        margin: auto;
+      }
+
+      /* Left side */
+      .left {
+        width: 40%;
+      }
+
+      .title {
+        font-size: 48px;
+        font-weight: bold;
+        margin-bottom: 40px;
+        text-shadow: 0 0 20px red;
+      }
+
+      /* Buttons */
+      .button {
+        display: block;
+        margin: 15px 0;
+        padding: 15px 25px;
+        font-size: 18px;
+        border-radius: 10px;
+        text-decoration: none;
+        color: white;
+        transition: 0.3s;
+        width: 260px;
+        text-align: center;
+      }
+
+      /* RGB animated buttons */
+      .discord {
+        background: #5865f2;
+        border: 3px solid;
+        border-image-slice: 1;
+        border-image-source: linear-gradient(270deg, red, orange, yellow, green, cyan, blue, violet, red);
+        animation: rgb-border 5s linear infinite;
+      }
+
+      .button:hover {
+        transform: scale(1.08);
+        box-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
+      }
+
+      @keyframes rgb-border {
+        0% {
+          border-image-source: linear-gradient(270deg, red, orange, yellow, green, cyan, blue, violet, red);
+        }
+        50% {
+          border-image-source: linear-gradient(270deg, violet, blue, cyan, green, yellow, orange, red, violet);
+        }
+        100% {
+          border-image-source: linear-gradient(270deg, red, orange, yellow, green, cyan, blue, violet, red);
+        }
+      }
+
+      /* Right side */
+      .right {
+        width: 50%;
+        display: flex;
+        justify-content: center;
+      }
+
+      /* Mini YouTube Channel Box */
+      .mini-channel {
+        background-color: rgba(0, 0, 0, 0.7);
+        border-radius: 15px;
+        padding: 20px;
+        width: 350px;
+        box-shadow: 0 0 20px #fff;
+        border: 3px solid;
+        border-image-slice: 1;
+        border-image-source: linear-gradient(45deg, red, orange, yellow, green, blue, indigo, violet);
+        animation: neon-border 5s linear infinite;
+      }
+
+      @keyframes neon-border {
+        0% {
+          border-image-source: linear-gradient(45deg, red, orange, yellow, green, blue, indigo, violet);
+        }
+        50% {
+          border-image-source: linear-gradient(45deg, violet, blue, green, yellow, orange, red);
+        }
+        100% {
+          border-image-source: linear-gradient(45deg, red, orange, yellow, green, blue, indigo, violet);
+        }
+      }
+
+      .mini-header {
+        display: flex;
+        align-items: center;
+        margin-bottom: 15px;
+      }
+
+      .mini-header img {
+        width: 80px;
+        height: 80px;
+        border-radius: 50%;
+        margin-right: 15px;
+        border: 2px solid #fff;
+      }
+
+      .mini-title {
+        font-size: 24px;
+        font-weight: bold;
+      }
+
+      .subscribe-btn {
+        background-color: red;
+        border: none;
+        padding: 10px 20px;
+        border-radius: 15px;
+        color: #fff;
+        cursor: pointer;
+        font-size: 16px;
+        font-weight: bold;
+        margin: 10px auto;
+        display: block;
+      }
+
+      .subscribe-btn:hover {
+        background: #cc0000;
+      }
+
+      /* Responsive YouTube tabs */
+      .tabs {
+        display: flex;
+        gap: 6px;
+        margin-top: 20px;
+      }
+
+      .tab {
+        flex: 1;
+        padding: 8px 10px;
+        border-radius: 10px;
+        background: linear-gradient(45deg, #ff0000, #ffff00, #00ff00, #00ffff, #0000ff, #ff00ff);
+        background-size: 600% 600%;
+        color: #fff;
+        font-weight: bold;
+        cursor: pointer;
+        transition: 0.3s;
+        text-align: center;
+        font-size: 14px;
+      }
+
+      .tab:hover {
+        transform: scale(1.05);
+      }
+
+      .icon-row {
+        margin-top: 10px;
+        display: flex;
+        gap: 10px;
+      }
+
+      .icon-row img {
+        width: 30px;
+      }
+
+      /* Particles */
+      #particles-js {
+        position: fixed;
+        width: 100%;
+        height: 100%;
+        z-index: -1;
+      }
+
+      /* Responsive design */
+
+      @media (max-width: 1000px) {
+        .container {
+          flex-direction: column;
+          padding: 40px 20px;
+        }
+
+        .left {
+          width: 100%;
+          text-align: center;
+        }
+
+        .right {
+          width: 100%;
+          margin-top: 40px;
+        }
+
+        .button {
+          width: 90%;
+          margin: auto;
+          margin-top: 15px;
+        }
+
+        .mini-channel {
+          width: 90%;
+        }
+      }
+
+      @media (max-width: 500px) {
+        .title {
+          font-size: 28px;
+        }
+
+        .button {
+          font-size: 16px;
+          padding: 12px;
+        }
+
+        .mini-header img {
+          width: 60px;
+          height: 60px;
+        }
+
+        .mini-title {
+          font-size: 20px;
+        }
+
+        .tab {
+          font-size: 12px;
+          padding: 6px;
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="overlay"></div>
+    <div id="particles-js"></div>
+
+    <div class="container">
+      <!-- LEFT SIDE -->
+      <div class="left">
+        <div class="title">DVL COMMUNITY</div>
+
+        <a class="button discord" href="https://discord.gg/sgZSnQ8uY4" target="_blank">Join DVL Clan</a>
+
+        <a class="button discord" href="https://discord.gg/D7spVy8wgJ" target="_blank">Join BloodStrike Lounge</a>
+      </div>
+
+      <!-- RIGHT SIDE -->
+      <div class="right">
+        <div class="mini-channel">
+          <div class="mini-header">
+            <img
+              src="https://yt3.googleusercontent.com/M6e89cup_RAK4ZMuUI5msTKUx3A_0HLrn9sQeXDwC9akLB65vC21hh7MIuJMlq4MCGSugHKnGQ=w1707-fcrop64=1,00005a57ffffa5a8-k-c0xffffffff-no-nd-rj"
+            />
+            <div class="mini-title">Mini</div>
+          </div>
+
+          <button class="subscribe-btn" onclick="window.open('https://www.youtube.com/@Mini12-v', '_blank')">
+            SUBSCRIBE
+          </button>
+
+          <div class="tabs">
+            <div class="tab" onclick="window.open('https://www.youtube.com/@Mini12-v/videos', '_blank')">VIDEOS</div>
+            <div class="tab" onclick="window.open('https://www.youtube.com/@Mini12-v/shorts', '_blank')">SHORTS</div>
+            <div class="tab" onclick="window.open('https://www.youtube.com/@Mini12-v/streams', '_blank')">LIVE</div>
+          </div>
+
+          <div class="icon-row">
+            <img src="https://img.icons8.com/color/48/000000/youtube-play.png" />
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+
+    <script>
+      particlesJS("particles-js", {
+        particles: {
+          number: { value: 80 },
+          size: { value: 3 },
+          move: { speed: 2 },
+          line_linked: { enable: true },
+        },
+      });
+    </script>
+  </body>
+</html>

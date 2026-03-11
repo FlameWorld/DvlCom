@@ -1,319 +1,446 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    
-    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' https: data:; style-src 'self' 'unsafe-inline' https:; script-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net; connect-src 'self' https:; frame-ancestors 'none';">
-    <meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin">
-    <meta http-equiv="X-Content-Type-Options" content="nosniff">
-    
-    <title>DVL Community</title>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    <style>
-      body {
-        margin: 0;
-        font-family: Arial;
-        color: white;
-        overflow-x: hidden;
-        background: url("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRcwpgOmaOOmfzMhqv0coqzALirtaRORzuoZw&s")
-          no-repeat center center fixed;
-        background-size: cover;
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self' data: https:; img-src 'self' data: https:; style-src 'self' 'unsafe-inline' https:; script-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net; connect-src 'self' https:; frame-ancestors 'none';">
+  <meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin">
+  <meta http-equiv="X-Content-Type-Options" content="nosniff">
+
+  <title>DVL Community</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+      scroll-behavior: smooth;
+    }
+
+    html, body {
+      margin: 0;
+      padding: 0;
+      font-family: Arial, sans-serif;
+      color: white;
+      overflow-x: hidden;
+      background: url("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRcwpgOmaOOmfzMhqv0coqzALirtaRORzuoZw&s") no-repeat center center fixed;
+      background-size: cover;
+    }
+
+    .overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.70);
+      z-index: -1;
+    }
+
+    .topbar {
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 12px;
+      padding: 14px 16px;
+      background: rgba(0, 0, 0, 0.58);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(255,255,255,0.12);
+      overflow-x: auto;
+      flex-wrap: nowrap;
+      -webkit-overflow-scrolling: touch;
+    }
+
+    .topbar::-webkit-scrollbar {
+      height: 6px;
+    }
+
+    .topbar::-webkit-scrollbar-thumb {
+      background: rgba(255,255,255,0.2);
+      border-radius: 20px;
+    }
+
+    .nav-btn,
+    .main-btn {
+      flex: 0 0 auto;
+      min-width: 130px;
+      padding: 12px 18px;
+      border: none;
+      border-radius: 14px;
+      font-weight: bold;
+      font-size: 15px;
+      color: white;
+      cursor: pointer;
+      text-decoration: none;
+      text-align: center;
+      background: linear-gradient(135deg, rgba(255,0,100,0.85), rgba(0,170,255,0.85));
+      box-shadow: 0 0 16px rgba(255,255,255,0.12);
+      transition: transform 0.25s ease, box-shadow 0.25s ease;
+    }
+
+    .nav-btn:hover,
+    .main-btn:hover {
+      transform: translateY(-2px) scale(1.02);
+      box-shadow: 0 0 22px rgba(255,255,255,0.22);
+    }
+
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 50px 20px 70px;
+    }
+
+    .hero-stack {
+      width: 100%;
+      max-width: 440px;
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+    }
+
+    .profile-card,
+    .partnership-card,
+    .social-card {
+      width: 100%;
+      border-radius: 24px;
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.15);
+      backdrop-filter: blur(12px);
+      box-shadow: 0 0 26px rgba(0,0,0,0.35);
+      padding: 26px;
+      text-align: center;
+    }
+
+    .profile-pic,
+    .social-profile-pic,
+    .partnership-image {
+      display: block;
+      object-fit: cover;
+      object-position: center;
+      background: #111;
+      image-rendering: auto;
+    }
+
+    .profile-pic {
+      width: 145px;
+      height: 145px;
+      border-radius: 50%;
+      margin: 0 auto 18px auto;
+      border: 3px solid rgba(255,255,255,0.22);
+      box-shadow: 0 0 20px rgba(255,255,255,0.12);
+    }
+
+    .social-profile-pic {
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      margin: 0 auto 18px auto;
+      border: 2px solid rgba(255,255,255,0.18);
+      box-shadow: 0 0 20px rgba(255,255,255,0.10);
+    }
+
+    .profile-name {
+      font-size: 30px;
+      font-weight: bold;
+      margin-bottom: 8px;
+    }
+
+    .profile-role {
+      font-size: 16px;
+      color: #d7d7d7;
+      margin-bottom: 14px;
+    }
+
+    .profile-text,
+    .social-card p,
+    .partnership-text {
+      font-size: 15px;
+      line-height: 1.65;
+      color: #efefef;
+      margin: 0;
+    }
+
+    .partnership-box-image {
+      position: relative;
+      width: 100%;
+      border-radius: 22px;
+      overflow: hidden;
+      box-shadow: 0 0 20px rgba(0,0,0,0.28);
+      border: 1px solid rgba(255,255,255,0.10);
+      background: rgba(255,255,255,0.04);
+    }
+
+    .partnership-image {
+      width: 100%;
+      height: 280px;
+    }
+
+    .partnership-overlay {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      padding: 18px;
+      background: linear-gradient(to top, rgba(0,0,0,0.82), rgba(0,0,0,0.10) 55%, rgba(0,0,0,0.02));
+    }
+
+    .partnership-title {
+      font-size: 24px;
+      margin: 0 0 10px;
+      word-break: break-word;
+      text-align: left;
+      font-weight: bold;
+    }
+
+    .partnership-text {
+      text-align: left;
+      margin-bottom: 14px;
+      color: #f1f1f1;
+    }
+
+    .partnership-overlay .main-btn {
+      width: 100%;
+      margin: 0;
+    }
+
+    .section {
+      padding: 20px 20px 70px;
+    }
+
+    .section-inner {
+      width: min(1100px, 100%);
+      margin: 0 auto;
+    }
+
+    .section-title {
+      text-align: center;
+      font-size: 38px;
+      margin: 0 0 14px;
+      text-shadow: 0 0 14px rgba(255,255,255,0.15);
+    }
+
+    .section-subtitle {
+      text-align: center;
+      color: #e5e5e5;
+      font-size: 16px;
+      margin: 0 0 32px;
+      line-height: 1.6;
+    }
+
+    .social-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(280px, 1fr));
+      gap: 24px;
+      align-items: stretch;
+    }
+
+    .social-icon {
+      width: 58px;
+      height: 58px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 16px auto;
+      border-radius: 16px;
+      background: rgba(255,255,255,0.12);
+    }
+
+    .join-links {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin-top: 18px;
+    }
+
+    .join-link {
+      display: block;
+      width: 100%;
+      text-decoration: none;
+      color: white;
+      padding: 14px 16px;
+      border-radius: 14px;
+      font-weight: bold;
+      text-align: center;
+      background: linear-gradient(135deg, rgba(255,0,80,0.82), rgba(0,180,255,0.82));
+      box-shadow: 0 0 16px rgba(255,255,255,0.1);
+      transition: transform 0.25s ease, box-shadow 0.25s ease;
+      word-break: break-word;
+    }
+
+    .join-link:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 0 22px rgba(255,255,255,0.18);
+    }
+
+    footer {
+      text-align: center;
+      padding: 25px 15px 40px;
+      color: #d7d7d7;
+      font-size: 14px;
+    }
+
+    @media (max-width: 980px) {
+      .social-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 560px) {
+      .topbar {
+        justify-content: flex-start;
       }
 
-      /* dark overlay */
-      .overlay {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background: rgba(0, 0, 0, 0.6);
-        z-index: -1;
-      }
-
-      /* Layout */
-      .container {
-        display: flex;
-        min-height: 100vh;
-        align-items: center;
-        justify-content: space-between;
-        padding: 80px;
-        max-width: 1600px;
-        margin: auto;
-      }
-
-      /* Left side */
-      .left {
-        width: 40%;
-      }
-
-      .title {
-        font-size: 48px;
-        font-weight: bold;
-        margin-bottom: 40px;
-        text-shadow: 0 0 20px red;
-      }
-
-      /* Buttons */
-      .button {
-        display: block;
-        margin: 15px 0;
-        padding: 15px 25px;
-        font-size: 18px;
-        border-radius: 10px;
-        text-decoration: none;
-        color: white;
-        transition: 0.3s;
-        width: 260px;
-        text-align: center;
-      }
-
-      /* RGB animated buttons */
-      .discord {
-        background: #5865f2;
-        border: 3px solid;
-        border-image-slice: 1;
-        border-image-source: linear-gradient(270deg, red, orange, yellow, green, cyan, blue, violet, red);
-        animation: rgb-border 5s linear infinite;
-      }
-
-      .button:hover {
-        transform: scale(1.08);
-        box-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
-      }
-
-      @keyframes rgb-border {
-        0% {
-          border-image-source: linear-gradient(270deg, red, orange, yellow, green, cyan, blue, violet, red);
-        }
-        50% {
-          border-image-source: linear-gradient(270deg, violet, blue, cyan, green, yellow, orange, red, violet);
-        }
-        100% {
-          border-image-source: linear-gradient(270deg, red, orange, yellow, green, cyan, blue, violet, red);
-        }
-      }
-
-      /* Right side */
-      .right {
-        width: 50%;
-        display: flex;
-        justify-content: center;
-      }
-
-      /* Mini YouTube Channel Box */
-      .mini-channel {
-        background-color: rgba(0, 0, 0, 0.7);
-        border-radius: 15px;
-        padding: 20px;
-        width: 350px;
-        box-shadow: 0 0 20px #fff;
-        border: 3px solid;
-        border-image-slice: 1;
-        border-image-source: linear-gradient(45deg, red, orange, yellow, green, blue, indigo, violet);
-        animation: neon-border 5s linear infinite;
-      }
-
-      @keyframes neon-border {
-        0% {
-          border-image-source: linear-gradient(45deg, red, orange, yellow, green, blue, indigo, violet);
-        }
-        50% {
-          border-image-source: linear-gradient(45deg, violet, blue, green, yellow, orange, red);
-        }
-        100% {
-          border-image-source: linear-gradient(45deg, red, orange, yellow, green, blue, indigo, violet);
-        }
-      }
-
-      .mini-header {
-        display: flex;
-        align-items: center;
-        margin-bottom: 15px;
-      }
-
-      .mini-header img {
-        width: 80px;
-        height: 80px;
-        border-radius: 50%;
-        margin-right: 15px;
-        border: 2px solid #fff;
-      }
-
-      .mini-title {
-        font-size: 24px;
-        font-weight: bold;
-      }
-
-      .subscribe-btn {
-        background-color: red;
-        border: none;
-        padding: 10px 20px;
-        border-radius: 15px;
-        color: #fff;
-        cursor: pointer;
-        font-size: 16px;
-        font-weight: bold;
-        margin: 10px auto;
-        display: block;
-      }
-
-      .subscribe-btn:hover {
-        background: #cc0000;
-      }
-
-      /* Responsive YouTube tabs */
-      .tabs {
-        display: flex;
-        gap: 6px;
-        margin-top: 20px;
-      }
-
-      .tab {
-        flex: 1;
-        padding: 8px 10px;
-        border-radius: 10px;
-        background: linear-gradient(45deg, #ff0000, #ffff00, #00ff00, #00ffff, #0000ff, #ff00ff);
-        background-size: 600% 600%;
-        color: #fff;
-        font-weight: bold;
-        cursor: pointer;
-        transition: 0.3s;
-        text-align: center;
+      .nav-btn {
+        min-width: 120px;
         font-size: 14px;
+        padding: 11px 16px;
       }
 
-      .tab:hover {
-        transform: scale(1.05);
+      .profile-pic {
+        width: 118px;
+        height: 118px;
       }
 
-      .icon-row {
-        margin-top: 10px;
-        display: flex;
-        gap: 10px;
+      .social-profile-pic {
+        width: 96px;
+        height: 96px;
       }
 
-      .icon-row img {
-        width: 30px;
+      .partnership-image {
+        height: 220px;
       }
 
-      /* Particles */
-      #particles-js {
-        position: fixed;
-        width: 100%;
-        height: 100%;
-        z-index: -1;
+      .section-title {
+        font-size: 30px;
       }
 
-      /* Responsive design */
-
-      @media (max-width: 1000px) {
-        .container {
-          flex-direction: column;
-          padding: 40px 20px;
-        }
-
-        .left {
-          width: 100%;
-          text-align: center;
-        }
-
-        .right {
-          width: 100%;
-          margin-top: 40px;
-        }
-
-        .button {
-          width: 90%;
-          margin: auto;
-          margin-top: 15px;
-        }
-
-        .mini-channel {
-          width: 90%;
-        }
+      .partnership-overlay {
+        padding: 14px;
       }
 
-      @media (max-width: 500px) {
-        .title {
-          font-size: 28px;
-        }
-
-        .button {
-          font-size: 16px;
-          padding: 12px;
-        }
-
-        .mini-header img {
-          width: 60px;
-          height: 60px;
-        }
-
-        .mini-title {
-          font-size: 20px;
-        }
-
-        .tab {
-          font-size: 12px;
-          padding: 6px;
-        }
+      .partnership-title {
+        font-size: 20px;
       }
-    </style>
-  </head>
+    }
+  </style>
+</head>
+<body>
+  <div class="overlay"></div>
 
-  <body>
-    <div class="overlay"></div>
-    <div id="particles-js"></div>
+  <div class="topbar">
+    <button class="nav-btn" onclick="scrollToSection('home')">Home</button>
+    <button class="nav-btn" onclick="scrollToSection('discord')">Discord</button>
+    <button class="nav-btn" onclick="scrollToSection('tiktok')">TikTok</button>
+    <button class="nav-btn" onclick="scrollToSection('partnership')">Partnership</button>
+  </div>
 
-    <div class="container">
-      <!-- LEFT SIDE -->
-      <div class="left">
-        <div class="title">DVL COMMUNITY</div>
-
-        <a class="button discord" href="https://discord.gg/sgZSnQ8uY4" target="_blank">Join DVL Clan</a>
-
-        <a class="button discord" href="https://discord.gg/D7spVy8wgJ" target="_blank">Join BloodStrike Lounge</a>
+  <section class="hero" id="home">
+    <div class="hero-stack">
+      <div class="profile-card">
+        <img
+          src="data:image/jpeg;base64,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"
+          alt="DVL Community Profile"
+          class="profile-pic"
+        />
+        <div class="profile-name">DVL Community</div>
+        <div class="profile-role">Official Profile</div>
+        <div class="profile-text">
+          This is the main DVL Community profile image. 
+        </div>
       </div>
 
-      <!-- RIGHT SIDE -->
-      <div class="right">
-        <div class="mini-channel">
-          <div class="mini-header">
-            <img
-              src="https://yt3.googleusercontent.com/M6e89cup_RAK4ZMuUI5msTKUx3A_0HLrn9sQeXDwC9akLB65vC21hh7MIuJMlq4MCGSugHKnGQ=w1707-fcrop64=1,00005a57ffffa5a8-k-c0xffffffff-no-nd-rj"
-            />
-            <div class="mini-title">Mini</div>
-          </div>
-
-          <button class="subscribe-btn" onclick="window.open('https://www.youtube.com/@Mini12-v', '_blank')">
-            SUBSCRIBE
-          </button>
-
-          <div class="tabs">
-            <div class="tab" onclick="window.open('https://www.youtube.com/@Mini12-v/videos', '_blank')">VIDEOS</div>
-            <div class="tab" onclick="window.open('https://www.youtube.com/@Mini12-v/shorts', '_blank')">SHORTS</div>
-            <div class="tab" onclick="window.open('https://www.youtube.com/@Mini12-v/streams', '_blank')">LIVE</div>
-          </div>
-
-          <div class="icon-row">
-            <img src="https://img.icons8.com/color/48/000000/youtube-play.png" />
+      <div class="partnership-card" id="partnership">
+        <div class="partnership-box-image">
+          <img
+            src="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAYEBAUEBAYFBQUGBgYHCQ4JCQgICRINDQoOFRIWFhUSFBQXGiEcFxgfGRQUHScdHyIjJSUlFhwpLCgkKyEkJST/2wBDAQYGBgkICREJCREkGBQYJCQkJCQkJCQkJCQkJCQkJCQkJCQkJCQkJCQkJCQkJCQkJCQkJCQkJCQkJCQkJCQkJCT/wAARCAG1AlgDASIAAhEBAxEB/8QAHQABAAEFAQEBAAAAAAAAAAAAAAEDBAUGBwIICf/EAFcQAAEDAgQDBAUGCAkICAcAAAEAAgMEEQUGEiEHMUETUWFxFCIygZEIFZKhseEWIzdCU1TB8DM0NlJ0dbKz0RckYnJzgsLSGDhDVVZklKIlRmOEo8Px/8QAGQEBAQEBAQEAAAAAAAAAAAAAAAECBAYD/8QAIxEBAQEAAQQCAwADAAAAAAAAAAERIQIDBEESMQUTUSJhcf/aAAwDAQACEQMRAD8A+fFIUL0gIiBBKIiApUBSgKVCkIJREQApUBSgKQoUhAREQSFKhSgKQoUoCIgQSiIgL0oClARECCUREBSgRAUhQpCCUREAKURAUhQpQEREEhSiIClQFKAiKQgIiIJUqApQECIEEoiIJCIiApChekBERBIREQFKgKUBEUhBKIiAFKgKUBERBroUqApQECKQgIiIJCIiApChekBERBKIiApUBSgKQoUhBKIiAFKgKUBSFCkICIiCQpREBSFClAREQSiIgL0oClARECCUREAKUCICkKFIQSiIgBSiICkKFKAiKUBSiIClQFKAiIEEoiIJClQFKAgRSEBERBIREQFIUL0gIiIJREQEQIg15ERAUqApQERAglERBIUqApQECKQgIiIJCIiApChekBEQIJREQFKgKUBSOahSEEoiIClQFKApChSEBERBIUoiApChSgIiIJREQF6UBSgIiBBKIiAFKBEBSFCkIJREQApREBSFClAREQSFKIgKVClARFIQEREEhSoClAQIpHJAREQSEREGuoiIJCIiApChSSALnYICEhouSB5q2lqjyj+KoFxcbkklXBemoib+dfyCj0uLvd8FSocOrcTmEFDSVFVKfzIY"
+            alt="Partnership"
+            class="partnership-image"
+          />
+          <div class="partnership-overlay">
+            <div class="partnership-title">Partnership</div>
+            <p class="partnership-text">
+              Clean optimized partnership card For Latest Partner's.
+            </p>
+            <a
+              href="https://discord.gg/9aX5u5h8fJ"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="main-btn"
+            >
+              Join Partner Server!
+            </a>
           </div>
         </div>
       </div>
     </div>
+  </section>
 
-    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+  <section class="section" id="discord">
+    <div class="section-inner">
+      <h2 class="section-title">Community Area</h2>
+      <p class="section-subtitle">
+        Join one of our Discord servers or open the TikTok profile below.
+      </p>
 
-    <script>
-      particlesJS("particles-js", {
-        particles: {
-          number: { value: 80 },
-          size: { value: 3 },
-          move: { speed: 2 },
-          line_linked: { enable: true },
-        },
-      });
-    </script>
-  </body>
+      <div class="social-grid">
+        <div class="social-card">
+          <div class="social-icon">
+            <svg width="34" height="34" viewBox="0 0 24 24" fill="white" aria-hidden="true">
+              <path d="M20.317 4.369A19.791 19.791 0 0 0 15.885 3c-.191.328-.403.775-.553 1.124a18.27 18.27 0 0 0-5.29 0A11.575 11.575 0 0 0 9.49 3a19.736 19.736 0 0 0-4.433 1.369C2.254 8.555 1.533 12.638 1.89 16.665a19.92 19.92 0 0 0 5.031 2.551c.405-.555.765-1.143 1.074-1.761-.592-.223-1.157-.497-1.689-.816.142-.104.281-.212.416-.323 3.257 1.53 6.788 1.53 10.007 0 .136.111.275.219.417.323-.533.319-1.099.593-1.691.816.309.618.669 1.206 1.074 1.761a19.88 19.88 0 0 0 5.033-2.551c.418-4.67-.713-8.716-3.245-12.296ZM8.02 14.247c-.98 0-1.784-.898-1.784-2.002s.787-2.002 1.784-2.002c1.005 0 1.801.906 1.784 2.002 0 1.104-.787 2.002-1.784 2.002Zm7.96 0c-.98 0-1.784-.898-1.784-2.002s.787-2.002 1.784-2.002c1.005 0 1.801.906 1.784 2.002 0 1.104-.779 2.002-1.784 2.002Z"/>
+            </svg>
+          </div>
+          <h3>Discord Servers</h3>
+          <p>
+            Pick which community server you want to join.
+          </p>
+
+          <div class="join-links">
+            <a class="join-link" href="https://discord.gg/U3dPecbffQ" target="_blank" rel="noopener noreferrer">
+              Join Bloodstrike Lounge
+            </a>
+            <a class="join-link" href="https://discord.gg/JGmMJrDHN6" target="_blank" rel="noopener noreferrer">
+              Join DVL Clan
+            </a>
+          </div>
+        </div>
+
+        <div class="social-card" id="tiktok">
+          <img
+            src="data:image/jpeg;base64,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"
+            alt="TikTok Profile"
+            class="social-profile-pic"
+          />
+          <h3>TikTok Profile</h3>
+          <p>
+            This TikTok profile image is larger now, cleaner, optimized, and still stays centered without stretching.
+          </p>
+
+          <div class="join-links">
+            <a class="join-link" href="https://www.tiktok.com/@mini.aim1?_r=1&_t=ZN-94bfDgiHzIE" target="_blank" rel="noopener noreferrer">
+              Open TikTok Profile
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    © 2026 DVL Community. All rights reserved.
+  </footer>
+
+  <script>
+    function scrollToSection(id) {
+      const target = document.getElementById(id);
+      if (target) {
+        target.scrollIntoView({
+          behavior: "smooth",
+          block: "start"
+        });
+      }
+    }
+  </script>
+</body>
 </html>

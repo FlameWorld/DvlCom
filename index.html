@@ -19,30 +19,43 @@
     html, body {
       margin: 0;
       padding: 0;
+      min-height: 100%;
       font-family: Arial, sans-serif;
       color: white;
       overflow-x: hidden;
-      min-height: 100%;
       background: #000;
     }
 
-    /* Animated GIF background */
-    .bg-gif {
+    body {
+      position: relative;
+    }
+
+    /* Fullscreen animated background for all devices */
+    .bg-wrap {
       position: fixed;
+      inset: 0;
+      z-index: -3;
+      overflow: hidden;
+      background: #000;
+    }
+
+    .bg-wrap img {
+      position: absolute;
       inset: 0;
       width: 100%;
       height: 100%;
-      z-index: -3;
-      background: url("planetcollapse.gif") no-repeat center center;
-      background-size: cover;
-      background-attachment: fixed;
-      transform: scale(1.02);
+      object-fit: cover;
+      object-position: center center;
+      display: block;
+      user-select: none;
+      pointer-events: none;
+      transform: scale(1.03);
     }
 
     .overlay {
       position: fixed;
       inset: 0;
-      background: rgba(0, 0, 0, 0.72);
+      background: rgba(0, 0, 0, 0.70);
       z-index: -2;
     }
 
@@ -296,18 +309,36 @@
       font-size: 14px;
     }
 
-    /* Tablet */
+    /* Large screens / computers */
+    @media (min-width: 1200px) {
+      .hero-stack {
+        max-width: 500px;
+      }
+
+      .section-inner {
+        max-width: 1200px;
+      }
+    }
+
+    /* Laptops and medium screens */
+    @media (max-width: 1199px) {
+      .hero {
+        padding: 45px 20px 65px;
+      }
+    }
+
+    /* Tablets */
     @media (max-width: 980px) {
       .social-grid {
         grid-template-columns: 1fr;
       }
 
-      .hero {
-        padding-top: 40px;
+      .hero-stack {
+        max-width: 520px;
       }
     }
 
-    /* Mobile */
+    /* Phones */
     @media (max-width: 560px) {
       .topbar {
         justify-content: flex-start;
@@ -364,7 +395,7 @@
       }
     }
 
-    /* Extra small devices */
+    /* Extra small phones */
     @media (max-width: 380px) {
       .nav-btn,
       .main-btn,
@@ -381,19 +412,12 @@
         height: 190px;
       }
     }
-
-    /* Better mobile GIF handling */
-    @media (hover: none) and (pointer: coarse) {
-      .bg-gif {
-        background-position: center center;
-        background-size: cover;
-        background-attachment: scroll;
-      }
-    }
   </style>
 </head>
 <body>
-  <div class="bg-gif"></div>
+  <div class="bg-wrap">
+    <img src="planetcollapse.gif" alt="Animated background">
+  </div>
   <div class="overlay"></div>
 
   <div class="topbar">

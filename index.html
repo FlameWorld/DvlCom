@@ -22,15 +22,28 @@
       font-family: Arial, sans-serif;
       color: white;
       overflow-x: hidden;
-      background: url("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRcwpgOmaOOmfzMhqv0coqzALirtaRORzuoZw&s") no-repeat center center fixed;
+      min-height: 100%;
+      background: #000;
+    }
+
+    /* Animated GIF background */
+    .bg-gif {
+      position: fixed;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -3;
+      background: url("planetcollapse.gif") no-repeat center center;
       background-size: cover;
+      background-attachment: fixed;
+      transform: scale(1.02);
     }
 
     .overlay {
       position: fixed;
       inset: 0;
-      background: rgba(0, 0, 0, 0.70);
-      z-index: -1;
+      background: rgba(0, 0, 0, 0.72);
+      z-index: -2;
     }
 
     .topbar {
@@ -120,6 +133,7 @@
       object-position: center;
       background: #111;
       image-rendering: auto;
+      max-width: 100%;
     }
 
     .profile-pic {
@@ -144,6 +158,7 @@
       font-size: 30px;
       font-weight: bold;
       margin-bottom: 8px;
+      word-break: break-word;
     }
 
     .profile-role {
@@ -281,12 +296,18 @@
       font-size: 14px;
     }
 
+    /* Tablet */
     @media (max-width: 980px) {
       .social-grid {
         grid-template-columns: 1fr;
       }
+
+      .hero {
+        padding-top: 40px;
+      }
     }
 
+    /* Mobile */
     @media (max-width: 560px) {
       .topbar {
         justify-content: flex-start;
@@ -296,6 +317,13 @@
         min-width: 120px;
         font-size: 14px;
         padding: 11px 16px;
+      }
+
+      .profile-card,
+      .partnership-card,
+      .social-card {
+        padding: 20px;
+        border-radius: 20px;
       }
 
       .profile-pic {
@@ -323,10 +351,49 @@
       .partnership-title {
         font-size: 20px;
       }
+
+      .profile-name {
+        font-size: 25px;
+      }
+
+      .section-subtitle,
+      .profile-text,
+      .social-card p,
+      .partnership-text {
+        font-size: 14px;
+      }
+    }
+
+    /* Extra small devices */
+    @media (max-width: 380px) {
+      .nav-btn,
+      .main-btn,
+      .join-link {
+        font-size: 13px;
+        padding: 11px 14px;
+      }
+
+      .hero-stack {
+        gap: 18px;
+      }
+
+      .partnership-image {
+        height: 190px;
+      }
+    }
+
+    /* Better mobile GIF handling */
+    @media (hover: none) and (pointer: coarse) {
+      .bg-gif {
+        background-position: center center;
+        background-size: cover;
+        background-attachment: scroll;
+      }
     }
   </style>
 </head>
 <body>
+  <div class="bg-gif"></div>
   <div class="overlay"></div>
 
   <div class="topbar">
@@ -347,7 +414,7 @@
         <div class="profile-name">DVL Community</div>
         <div class="profile-role">Official Profile</div>
         <div class="profile-text">
-          This is the main DVL Community profile image. 
+          This is the main DVL Community profile image.
         </div>
       </div>
 
@@ -414,7 +481,7 @@
           />
           <h3>TikTok Profile</h3>
           <p>
-            Join our TikTok Channel! 
+            Join our TikTok Channel!
           </p>
 
           <div class="join-links">

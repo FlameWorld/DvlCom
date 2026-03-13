@@ -360,6 +360,7 @@
       font-size: clamp(20px, 3.2vw, 34px);
       font-weight: 900;
       letter-spacing: 1.5px;
+      color: #ffbf47;
       background: linear-gradient(90deg, #ffe66d 0%, #ff8a00 28%, #ff4338 52%, #58c6ff 76%, #d672ff 100%);
       -webkit-background-clip: text;
       background-clip: text;
@@ -371,6 +372,7 @@
     }
 
     .emoji-cyan {
+      color: #4fe7ff;
       background: linear-gradient(180deg, #d9ffff 0%, #7ee7ff 35%, #20cfff 65%, #8a6bff 100%);
       -webkit-background-clip: text;
       background-clip: text;
@@ -391,6 +393,7 @@
       font-weight: 900;
       letter-spacing: 1.8px;
       font-style: italic;
+      color: #fff0c7;
       background: linear-gradient(90deg, #fff6d6 0%, #ffb347 18%, #ffffff 42%, #7bd8ff 70%, #f3a6ff 100%);
       -webkit-background-clip: text;
       background-clip: text;
@@ -399,6 +402,40 @@
       filter:
         drop-shadow(0 0 10px rgba(255, 78, 30, 0.24))
         drop-shadow(0 0 16px rgba(255, 194, 62, 0.24));
+    }
+
+    @supports not ((-webkit-background-clip: text) or (background-clip: text)) {
+      .neon-title-top,
+      .neon-title-bottom,
+      .emoji-cyan {
+        background: none;
+      }
+
+      .neon-title-top {
+        color: #ffbf47;
+      }
+
+      .neon-title-bottom {
+        color: #fff0c7;
+      }
+
+      .emoji-cyan {
+        color: #4fe7ff;
+      }
+    }
+
+    @supports not (-webkit-text-stroke: 1px #000) {
+      .neon-title-top,
+      .neon-title-bottom,
+      .emoji-cyan {
+        text-shadow:
+          -1px -1px 0 rgba(0, 0, 0, 0.95),
+          1px -1px 0 rgba(0, 0, 0, 0.95),
+          -1px 1px 0 rgba(0, 0, 0, 0.95),
+          1px 1px 0 rgba(0, 0, 0, 0.95),
+          0 0 12px rgba(255, 190, 55, 0.35),
+          0 0 24px rgba(0, 217, 255, 0.22);
+      }
     }
 
     .neon-title-bottom::before,
@@ -685,12 +722,11 @@
 
 .partnership-section .partner-hero-card {
   width: min(100%, 560px);
-  background: linear-gradient(180deg, rgba(7, 15, 40, 0.95), rgba(8, 10, 30, 0.92));
+  background: transparent;
   border-radius: 30px;
-  padding: 36px 30px 34px;
+  padding: 38px 32px 36px;
   position: relative;
   box-shadow: 0 0 45px rgba(0, 0, 0, 0.45), 0 0 22px rgba(0, 125, 255, 0.15);
-  border: 1px solid rgba(255, 255, 255, 0.05);
   text-align: center;
   overflow: hidden;
 }
@@ -699,15 +735,26 @@
   content: "";
   position: absolute;
   inset: 0;
-  padding: 4px;
   border-radius: 30px;
-  background: linear-gradient(135deg, #ff00c8, #6f85ff, #00d8ff, #ff00c8);
-  background-size: 250% 250%;
-  animation: partnerBorderMove 6s linear infinite;
-  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-  -webkit-mask-composite: xor;
-  mask-composite: exclude;
+  background: linear-gradient(90deg, #00d9ff, #4f7cff, #c500ff, #ff007a, #00d9ff);
+  background-size: 300% 100%;
+  animation: rainbow 6s linear infinite;
+  z-index: 0;
   pointer-events: none;
+}
+
+.partnership-section .partner-hero-card::after {
+  content: "";
+  position: absolute;
+  inset: 2px;
+  border-radius: 28px;
+  background: linear-gradient(180deg, rgba(8, 15, 36, 0.92), rgba(8, 10, 24, 0.94));
+  z-index: 0;
+}
+
+.partnership-section .partner-hero-card > * {
+  position: relative;
+  z-index: 1;
 }
 
 .partnership-section .partner-logo-wrap {
@@ -793,11 +840,10 @@
 .partnership-section .partner-invite-card,
 .community-server-showcase .partner-invite-card {
   position: relative;
-  background: linear-gradient(180deg, rgba(10, 15, 30, 0.96), rgba(8, 11, 24, 0.95));
+  background: transparent;
   border-radius: 24px;
-  padding: 20px;
+  padding: 22px;
   overflow: hidden;
-  border: 1px solid rgba(255, 255, 255, 0.05);
   box-shadow: 0 0 25px rgba(0, 0, 0, 0.25), 0 0 18px rgba(111, 133, 255, 0.08);
 }
 
@@ -806,15 +852,28 @@
   content: "";
   position: absolute;
   inset: 0;
-  padding: 3px;
   border-radius: 24px;
-  background: linear-gradient(120deg, #ff00b7, #6f81ff, #00d9ff, #ff00b7);
-  background-size: 240% 100%;
-  animation: partnerBorderMove 6s linear infinite;
-  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-  -webkit-mask-composite: xor;
-  mask-composite: exclude;
+  background: linear-gradient(90deg, #00d9ff, #4f7cff, #c500ff, #ff007a, #00d9ff);
+  background-size: 300% 100%;
+  animation: rainbow 6s linear infinite;
+  z-index: 0;
   pointer-events: none;
+}
+
+.partnership-section .partner-invite-card::after,
+.community-server-showcase .partner-invite-card::after {
+  content: "";
+  position: absolute;
+  inset: 2px;
+  border-radius: 22px;
+  background: linear-gradient(180deg, rgba(11, 18, 36, 0.94), rgba(8, 10, 24, 0.95));
+  z-index: 0;
+}
+
+.partnership-section .partner-invite-card > *,
+.community-server-showcase .partner-invite-card > * {
+  position: relative;
+  z-index: 1;
 }
 
 .partnership-section .partner-invite-top,
@@ -900,13 +959,13 @@
   padding: 11px 18px;
   border-radius: 14px;
   font-weight: 800;
-  background: rgba(10, 12, 30, 0.96);
+  background: transparent;
   position: relative;
   overflow: hidden;
-  border: 1px solid rgba(255, 255, 255, 0.06);
   min-width: 130px;
   text-align: center;
   transition: transform 0.25s ease, box-shadow 0.25s ease;
+  isolation: isolate;
 }
 
 .partnership-section .partner-join-btn::before,
@@ -914,29 +973,27 @@
   content: "";
   position: absolute;
   inset: 0;
-  padding: 3px;
   border-radius: 14px;
-  background: linear-gradient(90deg, #ff00b7, #7a5eff, #00d9ff, #ff00b7);
-  background-size: 220% 100%;
-  animation: partnerBorderMove 5s linear infinite;
-  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-  -webkit-mask-composite: xor;
-  mask-composite: exclude;
+  background: linear-gradient(90deg, #00d9ff, #4f7cff, #c500ff, #ff007a, #00d9ff);
+  background-size: 300% 100%;
+  animation: rainbow 6s linear infinite;
+  z-index: -2;
+}
+
+.partnership-section .partner-join-btn::after,
+.community-server-showcase .partner-join-btn::after {
+  content: "";
+  position: absolute;
+  inset: 2px;
+  border-radius: 12px;
+  background: rgba(8,12,25,.95);
+  z-index: -1;
 }
 
 .partnership-section .partner-join-btn:hover,
 .community-server-showcase .partner-join-btn:hover {
   transform: translateY(-2px);
   box-shadow: 0 0 20px rgba(110, 145, 255, 0.2);
-}
-
-@keyframes partnerBorderMove {
-  0% {
-    background-position: 0% 50%;
-  }
-  100% {
-    background-position: 250% 50%;
-  }
 }
 
 @media (max-width: 991px) {

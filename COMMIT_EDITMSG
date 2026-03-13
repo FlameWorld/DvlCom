@@ -1,1 +1,19 @@
-Update DVL site assets and partnership invites
+
+# Please enter the commit message for your changes. Lines starting
+# with '#' will be ignored, and an empty message aborts the commit.
+#
+# On branch main
+# Your branch is ahead of 'origin/main' by 1 commit.
+#   (use "git push" to publish your local commits)
+#
+# Changes to be committed:
+#	new file:   .vscode/launch.json
+#	new file:   COMMIT_EDITMSG
+#	new file:   customtitles.png
+#	modified:   index.css
+#	modified:   index.html
+#	new file:   title-community.png
+#	new file:   title-partnership.png
+#	new file:   title-team.png
+#	new file:   title-tiktok.png
+#

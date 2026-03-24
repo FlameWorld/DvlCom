@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Neon Drift Preview</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      overflow: hidden;
+      min-height: 100vh;
+      font-family: "Trebuchet MS", sans-serif;
+      color: white;
+      background:
+        linear-gradient(rgba(3, 8, 24, 0.3), rgba(8, 4, 24, 0.4)),
+        url("../gamingxx.jpg") center center / cover no-repeat;
+    }
+    .stage {
+      position: fixed;
+      inset: 0;
+      background:
+        radial-gradient(circle at 20% 30%, rgba(0, 238, 255, 0.18), transparent 26%),
+        radial-gradient(circle at 75% 25%, rgba(255, 0, 122, 0.16), transparent 22%),
+        radial-gradient(circle at 50% 80%, rgba(132, 72, 255, 0.18), transparent 24%);
+    }
+    .stage::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background:
+        linear-gradient(rgba(255,255,255,0.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.04) 1px, transparent 1px);
+      background-size: 42px 42px;
+      opacity: 0.2;
+    }
+    .content {
+      position: relative;
+      z-index: 3;
+      height: 100vh;
+      display: grid;
+      place-items: center;
+      text-align: center;
+      padding: 32px;
+    }
+    .label {
+      display: inline-flex;
+      padding: 10px 16px;
+      border-radius: 999px;
+      background: rgba(8, 12, 25, 0.72);
+      border: 1px solid rgba(255,255,255,0.08);
+      letter-spacing: 0.2em;
+      font-size: 12px;
+      text-transform: uppercase;
+      margin-bottom: 18px;
+    }
+    h1 {
+      font-size: clamp(44px, 8vw, 90px);
+      line-height: 0.95;
+      max-width: 900px;
+      text-shadow: 0 8px 30px rgba(0,0,0,0.45);
+    }
+    p {
+      margin-top: 16px;
+      max-width: 720px;
+      font-size: 20px;
+      line-height: 1.7;
+      color: rgba(255,255,255,0.82);
+    }
+    .particle {
+      position: absolute;
+      border-radius: 50%;
+      pointer-events: none;
+      animation: floatUp linear infinite;
+      opacity: 0.8;
+      filter: blur(1px);
+      box-shadow: 0 0 18px currentColor;
+    }
+    .trail {
+      position: absolute;
+      width: 2px;
+      border-radius: 999px;
+      background: linear-gradient(180deg, rgba(255,255,255,0.95), transparent);
+      opacity: 0.32;
+      animation: floatUp linear infinite;
+      pointer-events: none;
+      transform-origin: top center;
+    }
+    @keyframes floatUp {
+      0% { transform: translate3d(0, 18vh, 0) scale(0.8); opacity: 0; }
+      15% { opacity: 0.9; }
+      100% { transform: translate3d(0, -120vh, 0) scale(1.15); opacity: 0; }
+    }
+  </style>
+</head>
+<body>
+  <div class="stage" id="stage"></div>
+  <div class="content">
+    <div>
+      <div class="label">Option 1</div>
+      <h1>Neon Drift Particles</h1>
+      <p>Small glowing orbs slowly rise through the scene, keeping the gaming background visible while adding a live cyber look.</p>
+    </div>
+  </div>
+  <script>
+    var stage = document.getElementById("stage");
+    var colors = ["#66f7ff", "#ff5ea8", "#9b7bff", "#ffffff"];
+    for (var i = 0; i < 42; i += 1) {
+      var dot = document.createElement("span");
+      dot.className = i % 4 === 0 ? "trail" : "particle";
+      dot.style.left = Math.random() * 100 + "%";
+      dot.style.top = Math.random() * 100 + "%";
+      dot.style.animationDuration = 7 + Math.random() * 7 + "s";
+      dot.style.animationDelay = -Math.random() * 12 + "s";
+      dot.style.color = colors[i % colors.length];
+      if (dot.className === "particle") {
+        var size = 4 + Math.random() * 10;
+        dot.style.width = size + "px";
+        dot.style.height = size + "px";
+        dot.style.background = colors[i % colors.length];
+      } else {
+        dot.style.height = 80 + Math.random() * 150 + "px";
+        dot.style.transform = "rotate(" + (-14 + Math.random() * 28) + "deg)";
+      }
+      stage.appendChild(dot);
+    }
+  </script>
+</body>
+</html>
